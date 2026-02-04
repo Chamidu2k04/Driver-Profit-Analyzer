@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Driver Profit Analyzer | Vehicle Fuel & Income Calculator by Chamidu Lakshan</title>
+    <meta name="description" content="A professional vehicle profit and fuel cost calculator for Uber, PickMe, and private drivers. Calculate net income with fuel efficiency and platform fees. Developed by Chamidu Lakshan.">
+    <meta name="keywords" content="Driver Profit Calculator, Fuel Cost Calculator Sri Lanka, Uber Income Tracker, PickMe Profit Analyzer, Vehicle Expense Tracker, Chamidu Lakshan">
+    <meta name="author" content="Chamidu Lakshan">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Professional Driver Profit Analyzer">
+    <meta property="og:description" content="Calculate your true driving profit after fuel and fees. Mobile-friendly and easy to use.">
+    <meta property="og:url" content="https://www.chamidu.me">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Driver Profit Analyzer",
+      "url": "https://www.chamidu.me",
+      "abstract": "A tool for drivers to calculate net profit after fuel expenses and platform fees.",
+      "author": {
+        "@type": "Person",
+        "name": "Chamidu Lakshan"
+      },
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --success: #059669;
+            --danger: #dc2626;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Iskoola Pota', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container { width: 100%; max-width: 600px; }
+
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .lang-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active { background: var(--accent); color: white; }
+
+        .card {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 { margin: 0; text-align: center; font-size: 1.75rem; color: var(--primary); }
+        .subtitle { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+
+        .section-title { 
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; 
+            color: var(--accent); margin: 20px 0 10px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .input-box { display: flex; flex-direction: column; margin-bottom: 12px; }
+        label { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+        input, select { padding: 12px; border: 1px solid #d1d5db; border-radius: 12px; font-size: 1rem; background: white; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        button.main-btn {
+            flex: 1; min-width: 140px; padding: 15px; background: var(--primary); color: white;
+            border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer;
+            transition: transform 0.1s;
+        }
+        button.secondary { background: #64748b; }
+        button.reset-btn { background: #f1f5f9; color: var(--text-muted); }
+        button.main-btn:active { transform: scale(0.98); }
+
+        .results {
+            background: #f8fafc; padding: 25px; border-radius: 16px;
+            margin-top: 25px; display: none; border: 1px solid #e2e8f0;
+        }
+
+        .timestamp { font-size: 0.8rem; color: var(--text-muted); text-align: right; margin-bottom: 15px; }
+        .row { display: flex; justify-content: space-between; margin: 8px 0; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .net-box { margin-top: 20px; text-align: center; padding: 15px; border-radius: 12px; background: #fff; border: 1px solid #ddd; }
+        .net-value { font-size: 2.2rem; font-weight: 900; display: block; }
+
+        footer { margin-top: 30px; text-align: center; font-size: 0.9rem; color: var(--text-muted); padding-bottom: 30px; }
+        footer a { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed var(--accent); }
+
+        @media print {
+            .input-box, button, .section-title, .subtitle, footer, select, .lang-toggle { display: none !important; }
+            .card { box-shadow: none; border: none; width: 100%; }
+            .results { display: block !important; border: 2px solid #000; }
+        }
+
+        .pos { color: var(--success); }
+        .neg { color: var(--danger); }
+    </style>
+</head>
+<body>
+
+<main class="container">
+    <nav class="lang-toggle" aria-label="Language selection">
+        <button id="btnEn" class="lang-btn active" onclick="setLang('en')">English</button>
+        <button id="btnSi" class="lang-btn" onclick="setLang('si')" style="margin-left:5px">සිංහල</button>
+    </nav>
+
+    <article class="card">
+        <header>
+            <h1 id="tTitle">Driver Profit Analyzer</h1>
+            <p id="tSub" class="subtitle">Multi-Platform Trip Tracking System</p>
+        </header>
+        
+        <div id="s1" class="section-title">Vehicle & Setup</div>
+        <div class="grid">
+            <div class="input-box">
+                <label id="lVeh" for="vehicle">Vehicle Type</label>
+                <select id="vehicle">
+                    <option value="Car">🚗 Car</option>
+                    <option value="Bike">🏍️ Bike</option>
+                    <option value="Tuk-Tuk">🛺 Tuk-Tuk</option>
+                    <option value="Truck">🚛 Truck</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <label id="lPlat" for="platform">Platform</label>
+                <select id="platform">
+                    <option value="PickMe">PickMe</option>
+                    <option value="Uber">Uber</option>
+                    <option value="HealaGo">HealaGo</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="s2" class="section-title">Efficiency & Fuel</div>
+        <div class="grid">
+            <div class="input-box">
+                <label id="lStart" for="start">Start KM</label>
+                <input type="number" id="start" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-box">
+                <label id="lStop" for="stop">Stop KM</label>
+                <input type="number" id="stop" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-box">
+                <label id="lEff" for="eff">KM per Liter</label>
+                <input type="number" id="eff" step="0.01" value="15.00">
+            </div>
+            <div class="input-box">
+                <label id="lPrice" for="price">Fuel Price (Ltr)</label>
+                <input type="number" id="price" step="0.01" value="300.00">
+            </div>
+        </div>
+
+        <div id="s3" class="section-title">Financials</div>
+        <div class="grid">
+            <div class="input-box">
+                <label id="lInc" for="income">Total Income (Rs)</label>
+                <input type="number" id="income" step="0.01" placeholder="0.00">
+            </div>
+            <div class="input-box">
+                <label id="lFee" for="pFee">Fees & Others (Rs)</label>
+                <input type="number" id="pFee" step="0.01" placeholder="0.00">
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="btnCalc" class="main-btn" onclick="calculate()">Generate Report</button>
+            <button id="btnPrint" class="secondary main-btn" onclick="window.print()">Print Receipt</button>
+            <button id="btnReset" class="reset-btn main-btn" onclick="resetFields()">Clear</button>
+        </div>
+
+        <section id="results" class="results" aria-live="polite">
+            <div id="dateDisplay" class="timestamp"></div>
+            <div class="row"><span id="r1">Vehicle:</span> <strong id="resVeh">-</strong></div>
+            <div class="row"><span id="r2">Platform:</span> <strong id="resPlat">-</strong></div>
+            <div class="row"><span id="r3">Distance:</span> <strong id="resDist">0.00 km</strong></div>
+            <div class="row"><span id="r4">Fuel Cost:</span> <strong id="resFuel">Rs 0.00</strong></div>
+            <div class="row"><span id="r5">Fees/Other:</span> <strong id="resPFee">Rs 0.00</strong></div>
+            
+            <div class="net-box">
+                <span id="rNetLabel" style="font-weight: bold; color: var(--text-muted);">TOTAL NET PROFIT</span>
+                <span id="resNet" class="net-value">Rs 0.00</span>
+            </div>
+        </section>
+    </article>
+</main>
+
+<footer>
+    <p>Developed by <a href="https://www.chamidu.me" target="_blank" rel="noopener">Chamidu Lakshan</a></p>
+</footer>
+
+<script>
+    const i18n = {
+        en: {
+            tTitle: "Driver Profit Analyzer", tSub: "Multi-Platform Trip Tracking",
+            s1: "Vehicle & Setup", s2: "Efficiency & Fuel", s3: "Financials",
+            lVeh: "Vehicle Type", lPlat: "Platform", lStart: "Start KM", lStop: "Stop KM",
+            lEff: "KM per Liter", lPrice: "Fuel Price", lInc: "Total Income", lFee: "Fees & Others",
+            btnCalc: "Generate Report", btnPrint: "Print Receipt", btnReset: "Clear",
+            r1: "Vehicle:", r2: "Platform:", r3: "Distance:", r4: "Fuel Cost:", r5: "Fees/Other:",
+            rNetLabel: "TOTAL NET PROFIT", err: "Check KM readings!"
+        },
+        si: {
+            tTitle: "රියදුරු ලාභ ගණකය", tSub: "ගමන් විස්තර සහ වියදම් පරීක්ෂාව",
+            s1: "වාහන විස්තර", s2: "ඉන්ධන සහ කාර්යක්ෂමතාව", s3: "ආදායම් විස්තර",
+            lVeh: "වාහන වර්ගය", lPlat: "සේවා ආයතනය", lStart: "ආරම්භක KM", lStop: "අවසාන KM",
+            lEff: "ලීටරයකට දුර (KM)", lPrice: "ඉන්ධන මිල", lInc: "මුළු ආදායම", lFee: "වෙනත් වියදම්",
+            btnCalc: "වාර්තාව ලබාගන්න", btnPrint: "මුද්‍රණය කරන්න", btnReset: "මකන්න",
+            r1: "වාහනය:", r2: "සේවාව:", r3: "මුළු දුර:", r4: "ඉන්ධන වියදම:", r5: "වෙනත් වියදම්:",
+            rNetLabel: "මුළු ශුද්ධ ලාභය", err: "කරුණාකර KM අගයන් පරීක්ෂා කරන්න!"
+        }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+        document.getElementById('btnSi').classList.toggle('active', lang === 'si');
+        document.documentElement.lang = lang;
+        
+        for (let key in i18n[lang]) {
+            const el = document.getElementById(key);
+            if (el) el.innerText = i18n[lang][key];
+        }
+    }
+
+    function resetFields() {
+        document.getElementById('start').value = '';
+        document.getElementById('stop').value = '';
+        document.getElementById('income').value = '';
+        document.getElementById('pFee').value = '';
+        document.getElementById('results').style.display = 'none';
+    }
+
+    function calculate() {
+        const start = parseFloat(document.getElementById('start').value) || 0;
+        const stop = parseFloat(document.getElementById('stop').value) || 0;
+        const eff = parseFloat(document.getElementById('eff').value) || 1;
+        const price = parseFloat(document.getElementById('price').value) || 0;
+        const income = parseFloat(document.getElementById('income').value) || 0;
+        const pFee = parseFloat(document.getElementById('pFee').value) || 0;
+
+        const distance = stop - start;
+        if (distance < 0) { alert(i18n[currentLang].err); return; }
+
+        const fuelCost = (distance / eff) * price;
+        const netProfit = income - (fuelCost + pFee);
+        const fmt = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+
+        document.getElementById('dateDisplay').innerText = new Date().toLocaleString(currentLang === 'si' ? 'si-LK' : 'en-GB');
+        document.getElementById('resVeh').innerText = document.getElementById('vehicle').value;
+        document.getElementById('resPlat').innerText = document.getElementById('platform').value;
+        document.getElementById('resDist').innerText = distance.toFixed(2) + " km";
+        document.getElementById('resFuel').innerText = "Rs " + fuelCost.toLocaleString(undefined, fmt);
+        document.getElementById('resPFee').innerText = "Rs " + pFee.toLocaleString(undefined, fmt);
+        
+        const netEl = document.getElementById('resNet');
+        netEl.innerText = "Rs " + netProfit.toLocaleString(undefined, fmt);
+        netEl.className = 'net-value ' + (netProfit >= 0 ? 'pos' : 'neg');
+        document.getElementById('results').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
