@@ -6,7 +6,8 @@
 
 A professional web-based financial tool designed for drivers to calculate their **true net profit**. Track expenses across platforms like Uber, PickMe, and HealaGo with precision.
 
-
+## 🚀 Live Tool
+Use the tool directly here: **[DriverProfitAnalyzer.chamidu.me](https://DriverProfitAnalyzer.chamidu.me)**
 
 ## 🌟 Key Features
 
@@ -16,13 +17,6 @@ A professional web-based financial tool designed for drivers to calculate their 
 * **🖨️ Professional Receipts:** Generate printable, time-stamped reports with 2-decimal accuracy.
 * **📱 Mobile-First Design:** Optimized for quick entry while on the road.
 * **🔍 SEO Ready:** Includes JSON-LD Schema and Meta tags for search engine visibility.
-
-## 🚀 How to Use
-
-1.  Clone or download the `index.html` file.
-2.  Open it in any modern web browser.
-3.  Input your **Start/Stop Meter** readings and **Total Income**.
-4.  Hit **Generate Report** to see your earnings after fuel and fees.
 
 
 
@@ -41,9 +35,12 @@ The tool ensures financial accuracy using the following formulas:
 - **Vanilla JS:** Lightweight logic with no external dependencies.
 - **i18n:** Dynamic language switching engine.
 
+
+
 ## 👤 Developer
 
-**Chamidu Lakshan** 🌐 [www.chamidu.me](https://www.chamidu.me)
+**Chamidu Lakshan** 🌐 Website: [www.chamidu.me](https://www.chamidu.me)  
+🚀 Tool: [DriverProfitAnalyzer.chamidu.me](https://DriverProfitAnalyzer.chamidu.me)
 
 ---
 *Developed to empower the driver community with better financial tracking.*
