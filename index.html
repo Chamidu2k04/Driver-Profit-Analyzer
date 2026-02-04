@@ -4,125 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Driver Profit Analyzer | Vehicle Fuel & Income Calculator by Chamidu Lakshan</title>
-    <meta name="description" content="A professional vehicle profit and fuel cost calculator for Uber, PickMe, and private drivers. Calculate net income with fuel efficiency and platform fees. Developed by Chamidu Lakshan.">
-    <meta name="keywords" content="Driver Profit Calculator, Fuel Cost Calculator Sri Lanka, Uber Income Tracker, PickMe Profit Analyzer, Vehicle Expense Tracker, Chamidu Lakshan">
-    <meta name="author" content="Chamidu Lakshan">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="Professional Driver Profit Analyzer">
-    <meta property="og:description" content="Calculate your true driving profit after fuel and fees. Mobile-friendly and easy to use.">
-    <meta property="og:url" content="https://www.chamidu.me">
-    <meta property="og:type" content="website">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Driver Profit Analyzer",
-      "url": "https://www.chamidu.me",
-      "abstract": "A tool for drivers to calculate net profit after fuel expenses and platform fees.",
-      "author": {
-        "@type": "Person",
-        "name": "Chamidu Lakshan"
-      },
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All"
-    }
-    </script>
-
+    <title>Driver Profit Analyzer | Vehicle Fuel & Income Calculator</title>
+    <meta name="description" content="Professional vehicle profit and fuel cost calculator for Uber, PickMe, and private drivers. Developed by Chamidu Lakshan.">
+    
     <style>
         :root {
-            --bg: #f3f4f6;
+            --bg: #f8fafc;
             --card: #ffffff;
             --primary: #0f172a;
-            --accent: #3b82f6;
+            --accent: #2563eb;
             --success: #059669;
             --danger: #dc2626;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
         }
 
         body {
-            font-family: 'Segoe UI', 'Iskoola Pota', system-ui, sans-serif;
+            font-family: 'Inter', 'Segoe UI', 'Iskoola Pota', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
+            line-height: 1.5;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
+            padding: 10px;
         }
 
-        .container { width: 100%; max-width: 600px; }
+        .container { 
+            width: 100%; 
+            max-width: 650px; 
+            margin-top: 10px;
+        }
 
+        /* Language Toggle */
         .lang-toggle {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .lang-btn {
-            background: #e2e8f0;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 20px;
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 100px;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 0.8rem;
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
         }
 
-        .lang-btn.active { background: var(--accent); color: white; }
+        .lang-btn.active { 
+            background: var(--primary); 
+            color: white; 
+            border-color: var(--primary);
+        }
 
+        /* Main Card */
         .card {
             background: var(--card);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
         }
 
-        h1 { margin: 0; text-align: center; font-size: 1.75rem; color: var(--primary); }
-        .subtitle { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px; }
+        header { text-align: center; margin-bottom: 24px; }
+        h1 { margin: 0; font-size: 1.5rem; letter-spacing: -0.025em; color: var(--primary); }
+        .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
 
         .section-title { 
-            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; 
-            color: var(--accent); margin: 20px 0 10px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; 
+            color: var(--accent); margin: 24px 0 12px 0; 
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+        /* Responsive Grid */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 16px; 
         }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .input-box { display: flex; flex-direction: column; margin-bottom: 12px; }
-        label { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
-        input, select { padding: 12px; border: 1px solid #d1d5db; border-radius: 12px; font-size: 1rem; background: white; }
+        .input-box { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-main); }
+        
+        input, select { 
+            padding: 12px; 
+            border: 1px solid var(--border); 
+            border-radius: 10px; 
+            font-size: 1rem; 
+            transition: border-color 0.2s;
+            -webkit-appearance: none; /* Better mobile rendering */
+        }
+        
+        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
 
-        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        /* Buttons */
+        .btn-group { 
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px; 
+            margin-top: 24px; 
+        }
+
         button.main-btn {
-            flex: 1; min-width: 140px; padding: 15px; background: var(--primary); color: white;
-            border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer;
-            transition: transform 0.1s;
+            padding: 14px; background: var(--primary); color: white;
+            border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer;
+            transition: filter 0.2s;
         }
-        button.secondary { background: #64748b; }
-        button.reset-btn { background: #f1f5f9; color: var(--text-muted); }
-        button.main-btn:active { transform: scale(0.98); }
 
+        button.secondary { background: #f1f5f9; color: var(--text-main); border: 1px solid var(--border); }
+        button.reset-btn { grid-column: span 2; background: transparent; color: var(--danger); font-size: 0.85rem; padding: 8px; }
+        button.main-btn:hover { filter: brightness(1.1); }
+        button.main-btn:active { transform: translateY(1px); }
+
+        /* Results Area */
         .results {
-            background: #f8fafc; padding: 25px; border-radius: 16px;
-            margin-top: 25px; display: none; border: 1px solid #e2e8f0;
+            background: #f8fafc; padding: 20px; border-radius: 16px;
+            margin-top: 24px; display: none; border: 1px solid var(--border);
+            animation: fadeIn 0.4s ease-out;
         }
 
-        .timestamp { font-size: 0.8rem; color: var(--text-muted); text-align: right; margin-bottom: 15px; }
-        .row { display: flex; justify-content: space-between; margin: 8px 0; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-        .net-box { margin-top: 20px; text-align: center; padding: 15px; border-radius: 12px; background: #fff; border: 1px solid #ddd; }
-        .net-value { font-size: 2.2rem; font-weight: 900; display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        footer { margin-top: 30px; text-align: center; font-size: 0.9rem; color: var(--text-muted); padding-bottom: 30px; }
-        footer a { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed var(--accent); }
+        .timestamp { font-size: 0.75rem; color: var(--text-muted); text-align: right; margin-bottom: 12px; }
+        .row { display: flex; justify-content: space-between; margin: 10px 0; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
+        
+        .net-box { 
+            margin-top: 20px; text-align: center; padding: 16px; 
+            border-radius: 14px; background: #fff; border: 2px solid var(--border); 
+        }
+        .net-value { font-size: 2rem; font-weight: 800; display: block; }
+
+        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); padding: 20px; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        @media (max-width: 480px) {
+            .btn-group { grid-template-columns: 1fr; }
+            button.reset-btn { grid-column: span 1; }
+            .card { padding: 18px; }
+        }
 
         @media print {
-            .input-box, button, .section-title, .subtitle, footer, select, .lang-toggle { display: none !important; }
-            .card { box-shadow: none; border: none; width: 100%; }
-            .results { display: block !important; border: 2px solid #000; }
+            .lang-toggle, .btn-group, .section-title, .input-box, footer { display: none !important; }
+            .card { box-shadow: none; border: 1px solid #000; }
+            .results { display: block !important; }
         }
 
         .pos { color: var(--success); }
@@ -132,9 +164,9 @@
 <body>
 
 <main class="container">
-    <nav class="lang-toggle" aria-label="Language selection">
+    <nav class="lang-toggle">
         <button id="btnEn" class="lang-btn active" onclick="setLang('en')">English</button>
-        <button id="btnSi" class="lang-btn" onclick="setLang('si')" style="margin-left:5px">සිංහල</button>
+        <button id="btnSi" class="lang-btn" onclick="setLang('si')">සිංහල</button>
     </nav>
 
     <article class="card">
@@ -160,7 +192,7 @@
                     <option value="PickMe">PickMe</option>
                     <option value="Uber">Uber</option>
                     <option value="HealaGo">HealaGo</option>
-                    <option value="Other">Other</option>
+                    <option value="Other">Other / Private</option>
                 </select>
             </div>
         </div>
@@ -169,19 +201,19 @@
         <div class="grid">
             <div class="input-box">
                 <label id="lStart" for="start">Start KM</label>
-                <input type="number" id="start" step="0.01" placeholder="0.00">
+                <input type="number" id="start" step="0.01" inputmode="decimal" placeholder="0.00">
             </div>
             <div class="input-box">
                 <label id="lStop" for="stop">Stop KM</label>
-                <input type="number" id="stop" step="0.01" placeholder="0.00">
+                <input type="number" id="stop" step="0.01" inputmode="decimal" placeholder="0.00">
             </div>
             <div class="input-box">
                 <label id="lEff" for="eff">KM per Liter</label>
-                <input type="number" id="eff" step="0.01" value="15.00">
+                <input type="number" id="eff" step="0.01" inputmode="decimal" value="15.00">
             </div>
             <div class="input-box">
-                <label id="lPrice" for="price">Fuel Price (Ltr)</label>
-                <input type="number" id="price" step="0.01" value="300.00">
+                <label id="lPrice" for="price">Fuel Price (1L)</label>
+                <input type="number" id="price" step="0.01" inputmode="decimal" value="300.00">
             </div>
         </div>
 
@@ -189,21 +221,21 @@
         <div class="grid">
             <div class="input-box">
                 <label id="lInc" for="income">Total Income (Rs)</label>
-                <input type="number" id="income" step="0.01" placeholder="0.00">
+                <input type="number" id="income" step="0.01" inputmode="decimal" placeholder="0.00">
             </div>
             <div class="input-box">
                 <label id="lFee" for="pFee">Fees & Others (Rs)</label>
-                <input type="number" id="pFee" step="0.01" placeholder="0.00">
+                <input type="number" id="pFee" step="0.01" inputmode="decimal" placeholder="0.00">
             </div>
         </div>
 
         <div class="btn-group">
             <button id="btnCalc" class="main-btn" onclick="calculate()">Generate Report</button>
-            <button id="btnPrint" class="secondary main-btn" onclick="window.print()">Print Receipt</button>
-            <button id="btnReset" class="reset-btn main-btn" onclick="resetFields()">Clear</button>
+            <button id="btnPrint" class="main-btn secondary" onclick="window.print()">Print</button>
+            <button id="btnReset" class="reset-btn" onclick="resetFields()">Clear All Data</button>
         </div>
 
-        <section id="results" class="results" aria-live="polite">
+        <section id="results" class="results">
             <div id="dateDisplay" class="timestamp"></div>
             <div class="row"><span id="r1">Vehicle:</span> <strong id="resVeh">-</strong></div>
             <div class="row"><span id="r2">Platform:</span> <strong id="resPlat">-</strong></div>
@@ -212,7 +244,7 @@
             <div class="row"><span id="r5">Fees/Other:</span> <strong id="resPFee">Rs 0.00</strong></div>
             
             <div class="net-box">
-                <span id="rNetLabel" style="font-weight: bold; color: var(--text-muted);">TOTAL NET PROFIT</span>
+                <span id="rNetLabel" style="font-weight: bold; color: var(--text-muted); font-size: 0.8rem;">TOTAL NET PROFIT</span>
                 <span id="resNet" class="net-value">Rs 0.00</span>
             </div>
         </section>
@@ -230,7 +262,7 @@
             s1: "Vehicle & Setup", s2: "Efficiency & Fuel", s3: "Financials",
             lVeh: "Vehicle Type", lPlat: "Platform", lStart: "Start KM", lStop: "Stop KM",
             lEff: "KM per Liter", lPrice: "Fuel Price", lInc: "Total Income", lFee: "Fees & Others",
-            btnCalc: "Generate Report", btnPrint: "Print Receipt", btnReset: "Clear",
+            btnCalc: "Generate Report", btnPrint: "Print Receipt", btnReset: "Clear All Data",
             r1: "Vehicle:", r2: "Platform:", r3: "Distance:", r4: "Fuel Cost:", r5: "Fees/Other:",
             rNetLabel: "TOTAL NET PROFIT", err: "Check KM readings!"
         },
@@ -239,7 +271,7 @@
             s1: "වාහන විස්තර", s2: "ඉන්ධන සහ කාර්යක්ෂමතාව", s3: "ආදායම් විස්තර",
             lVeh: "වාහන වර්ගය", lPlat: "සේවා ආයතනය", lStart: "ආරම්භක KM", lStop: "අවසාන KM",
             lEff: "ලීටරයකට දුර (KM)", lPrice: "ඉන්ධන මිල", lInc: "මුළු ආදායම", lFee: "වෙනත් වියදම්",
-            btnCalc: "වාර්තාව ලබාගන්න", btnPrint: "මුද්‍රණය කරන්න", btnReset: "මකන්න",
+            btnCalc: "වාර්තාව ලබාගන්න", btnPrint: "මුද්‍රණය කරන්න", btnReset: "සියල්ල මකන්න",
             r1: "වාහනය:", r2: "සේවාව:", r3: "මුළු දුර:", r4: "ඉන්ධන වියදම:", r5: "වෙනත් වියදම්:",
             rNetLabel: "මුළු ශුද්ධ ලාභය", err: "කරුණාකර KM අගයන් පරීක්ෂා කරන්න!"
         }
@@ -260,11 +292,10 @@
     }
 
     function resetFields() {
-        document.getElementById('start').value = '';
-        document.getElementById('stop').value = '';
-        document.getElementById('income').value = '';
-        document.getElementById('pFee').value = '';
+        if(!confirm("Are you sure you want to clear all data?")) return;
+        ['start', 'stop', 'income', 'pFee'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('results').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function calculate() {
@@ -292,8 +323,13 @@
         const netEl = document.getElementById('resNet');
         netEl.innerText = "Rs " + netProfit.toLocaleString(undefined, fmt);
         netEl.className = 'net-value ' + (netProfit >= 0 ? 'pos' : 'neg');
+        
         document.getElementById('results').style.display = 'block';
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        
+        // Mobile-friendly scroll to results
+        setTimeout(() => {
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
     }
 </script>
 </body>
